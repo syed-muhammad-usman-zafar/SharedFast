@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso
 
 class ImageAdapter(
     private val imageList: MutableList<ImageItem>,
-    private val onImageClick: (Int) -> Unit
-) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+    private val onImageClick: (Int) -> Unit) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>()
+{
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)

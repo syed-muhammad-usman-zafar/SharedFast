@@ -1,7 +1,7 @@
 package com.example.sharedfast.model
 
 data class ImageItem(
-    val path: String,  // This can be a URI string or file path
+    val path: String,
     val title: String,
     val date: String
 )

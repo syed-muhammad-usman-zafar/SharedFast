@@ -182,10 +182,7 @@ class FolderActivity : AppCompatActivity() {
             takePictureLauncher.launch(photoURI)
         }
 
-        // Set up FAB for sharing - now shows options
-        findViewById<FloatingActionButton>(R.id.fabShare)?.setOnClickListener {
-            showSharingOptions()
-        }
+
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
     }
 
@@ -224,107 +221,7 @@ class FolderActivity : AppCompatActivity() {
                 image.date.lowercase().contains(searchQuery)
     }
 
-    // Updated to show sharing options like in MainActivity
-    private fun showSharingOptions() {
-        if (filteredImageList.isEmpty()) {
-            Toast.makeText(this, "No images to share", Toast.LENGTH_SHORT).show()
-            return
-        }
 
-        // Create a dialog with sharing options
-        val options = arrayOf("Facebook", "WhatsApp", "Bluetooth", "Gmail")
-
-        AlertDialog.Builder(this)
-            .setTitle("Share $folderName")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> shareViaApp("com.facebook.katana")
-                    1 -> shareViaApp("com.whatsapp")
-                    2 -> shareViaBluetooth()
-                    3 -> shareViaApp("com.google.android.gm")
-                }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
-
-    // Method to share via specific app package
-    private fun shareViaApp(packageName: String) {
-        if (filteredImageList.isEmpty()) {
-            Toast.makeText(this, "No images to share", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Create an intent to share
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND_MULTIPLE
-            type = "image/*"
-
-            // Convert image items to Uri objects
-            val imageUris = ArrayList<Uri>()
-            for (image in filteredImageList) {
-                imageUris.add(Uri.parse(image.path))
-            }
-            putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
-
-            putExtra(Intent.EXTRA_SUBJECT, "Sharing images from $folderName")
-            putExtra(Intent.EXTRA_TEXT, "Check out these images from SharedFast!")
-            setPackage(packageName)
-        }
-
-        try {
-            startActivity(shareIntent)
-        } catch (e: Exception) {
-            Toast.makeText(this, "App not installed or sharing not supported", Toast.LENGTH_SHORT).show()
-            // Fallback to general sharing if specific app isn't available
-            val fallbackIntent = Intent.createChooser(shareIntent.setPackage(null), "Share via")
-            startActivity(fallbackIntent)
-        }
-    }
-
-    // Method specifically for Bluetooth sharing
-    private fun shareViaBluetooth() {
-        if (filteredImageList.isEmpty()) {
-            Toast.makeText(this, "No images to share", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Create an intent to share via Bluetooth
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND_MULTIPLE
-            type = "image/*"
-
-            // Convert image items to Uri objects
-            val imageUris = ArrayList<Uri>()
-            for (image in filteredImageList) {
-                imageUris.add(Uri.parse(image.path))
-            }
-            putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
-
-            // Set Bluetooth package
-            setPackage("com.android.bluetooth")
-        }
-
-        try {
-            startActivity(shareIntent)
-        } catch (e: Exception) {
-            // Fallback if Bluetooth package isn't available or varies by device
-            val fallbackIntent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-                type = "image/*"
-                val imageUris = ArrayList<Uri>()
-                for (image in filteredImageList) {
-                    imageUris.add(Uri.parse(image.path))
-                }
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
-            }
-            startActivity(Intent.createChooser(fallbackIntent, "Share via Bluetooth"))
-        }
-    }
-
-    // Original method left for backward compatibility, but now uses the new implementation
-    private fun shareFolder() {
-        showSharingOptions()
-    }
 
     // Update the saveImagesToPreferences method
     private fun saveImagesToPreferences() {
