@@ -3,8 +3,6 @@ package com.example.sharedfast
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.adapter.ImageAdapter
 import com.example.sharedfast.model.ImageItem
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.app.AlertDialog
 import com.example.sharedfast.model.Folder
 import com.example.sharedfast.util.MediaStoreHelper
 import com.google.gson.Gson

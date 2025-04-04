@@ -1,4 +1,4 @@
-package com.example.sharedfast.adapter
+package com.example.sharedfast
 
 import android.app.AlertDialog
 import android.content.Context
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.R
 import com.example.sharedfast.model.Folder
 import com.squareup.picasso.Picasso
 
