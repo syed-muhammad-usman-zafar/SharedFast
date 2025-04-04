@@ -1,6 +1,8 @@
 package com.example.sharedfast
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import com.squareup.picasso.Picasso
 
 class ImageAdapter(
     private val imageList: MutableList<ImageItem>,
+    private val onImageDelete: (Int) -> Unit,
     private val onImageClick: (Int) -> Unit) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>()
 {
 
@@ -19,6 +22,7 @@ class ImageAdapter(
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val titleTextView: TextView = itemView.findViewById(R.id.imageTitleTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.imageDateTextView)
+        val deleteButton: ImageView = itemView.findViewById(R.id.deleteButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -44,6 +48,23 @@ class ImageAdapter(
         holder.itemView.setOnClickListener {
             onImageClick(position)
         }
+
+
+        // Set up delete button click listener
+        holder.deleteButton.setOnClickListener {
+            showDeleteConfirmationDialog(holder.itemView.context, position)
+        }
+    }
+    private fun showDeleteConfirmationDialog(context: Context, position: Int) {
+        val folderName = imageList[position].path
+        AlertDialog.Builder(context)
+            .setTitle("Delete Image")
+            .setMessage("Are you sure you want to delete '$folderName'? This action cannot be undone.")
+            .setPositiveButton("Delete")
+            { _, _ -> onImageDelete(position)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     override fun getItemCount(): Int = imageList.size
@@ -54,5 +75,14 @@ class ImageAdapter(
         imageList.clear()
         imageList.addAll(newList)
         notifyDataSetChanged()
+    }
+
+
+    // Method to remove a image from the list
+    fun removeFolder(position: Int) {
+        if (position >= 0 && position < imageList.size) {
+            imageList.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 }

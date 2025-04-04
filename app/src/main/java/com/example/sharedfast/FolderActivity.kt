@@ -104,7 +104,7 @@ class FolderActivity : AppCompatActivity() {
             val mediaSavedPath = MediaStoreHelper.saveImageToMediaStore(this, folderName, it)
 
             if (mediaSavedPath != null) {
-                val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
+                val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
                 val newImage = ImageItem(mediaSavedPath, "File $timeStamp", timeStamp)
                 imageList.add(newImage)
 
@@ -150,10 +150,17 @@ class FolderActivity : AppCompatActivity() {
         // Set up RecyclerView
         recyclerView = findViewById(R.id.recyclerViewImages)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
-        imageAdapter = ImageAdapter(filteredImageList) { position ->
-            // Handle image click
-            Toast.makeText(this, "Image $position clicked", Toast.LENGTH_SHORT).show()
-        }
+        filteredImageList = imageList.toMutableList()
+        // adapter with delete functionality
+        imageAdapter = ImageAdapter(
+            filteredImageList,
+            { position -> deleteImage(position) }, // onImageDelete
+            { position ->  Toast.makeText(this, "Image $position clicked", Toast.LENGTH_SHORT).show() // onImageClick
+                //full screen implementation
+            }
+        )
+
+
         recyclerView.adapter = imageAdapter
 
         // Set up buttons
@@ -177,6 +184,27 @@ class FolderActivity : AppCompatActivity() {
 
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+    }
+
+    // Updated method to delete a image
+    private fun deleteImage(position: Int) {
+        if (position >= 0 && position < filteredImageList.size) {
+            val imageToDelete = filteredImageList[position]
+
+            // Remove from filtered list
+            filteredImageList.removeAt(position)
+
+            // Remove from original list using the path (which is unique)
+            val originalIndex = imageList.indexOfFirst { it.path == imageToDelete.path }
+            if (originalIndex != -1) {
+                imageList.removeAt(originalIndex)
+            }
+
+            imageAdapter.notifyItemRemoved(position)
+            saveImagesToPreferences()
+
+            Toast.makeText(this, "Image deleted", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupSearchView() {
@@ -256,4 +284,9 @@ class FolderActivity : AppCompatActivity() {
         resultIntent.putStringArrayListExtra("folder_images", ArrayList(imagePaths))
         setResult(RESULT_OK, resultIntent)
     }
+
+
+
+
+
 }

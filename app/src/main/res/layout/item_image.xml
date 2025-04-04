@@ -42,5 +42,16 @@
             android:textSize="10sp"
             android:text="2025-04-03" />
 
+        <ImageView
+            android:id="@+id/deleteButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/trash_can"
+            android:contentDescription="Delete folder"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="@id/folderNameTextView"
+            app:layout_constraintBottom_toBottomOf="@id/folderNameTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
