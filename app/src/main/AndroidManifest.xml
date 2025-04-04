@@ -4,9 +4,6 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -44,7 +41,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.sharedfast.fileprovider"
+            android:authorities="com.example.shared fast.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

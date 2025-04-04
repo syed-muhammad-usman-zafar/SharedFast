@@ -54,7 +54,7 @@ class FolderActivity : AppCompatActivity() {
             )
 
             if (mediaSavedPath != null) {
-                val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
                 val newImage = ImageItem(mediaSavedPath, "Image $timeStamp", timeStamp)
                 imageList.add(newImage)
 
@@ -79,7 +79,7 @@ class FolderActivity : AppCompatActivity() {
             val mediaSavedPath = MediaStoreHelper.saveImageToMediaStore(this, folderName, it)
 
             if (mediaSavedPath != null) {
-                val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
                 val newImage = ImageItem(mediaSavedPath, "Image $timeStamp", timeStamp)
                 imageList.add(newImage)
 
@@ -104,7 +104,7 @@ class FolderActivity : AppCompatActivity() {
             val mediaSavedPath = MediaStoreHelper.saveImageToMediaStore(this, folderName, it)
 
             if (mediaSavedPath != null) {
-                val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
                 val newImage = ImageItem(mediaSavedPath, "File $timeStamp", timeStamp)
                 imageList.add(newImage)
 
@@ -169,7 +169,7 @@ class FolderActivity : AppCompatActivity() {
             val photoFile = createImageFile()
             val photoURI = FileProvider.getUriForFile(
                 this,
-                "com.example.shared fast.file provider",
+                "com.example.shared fast.fileprovider",
                 photoFile
             )
             takePictureLauncher.launch(photoURI)
