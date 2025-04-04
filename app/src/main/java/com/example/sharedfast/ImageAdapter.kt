@@ -1,5 +1,6 @@
 package com.example.sharedfast
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.model.ImageItem
 import com.squareup.picasso.Picasso
 
 class ImageAdapter(
@@ -49,6 +49,7 @@ class ImageAdapter(
     override fun getItemCount(): Int = imageList.size
 
     // Method to update the image list for searching
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<ImageItem>) {
         imageList.clear()
         imageList.addAll(newList)

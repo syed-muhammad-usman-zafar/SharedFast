@@ -1,11 +1,11 @@
 package com.example.sharedfast
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.model.Folder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import android.app.AlertDialog
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun filterFolders(query: String?) {
         filteredFolderList.clear()
 
@@ -244,6 +245,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addFolder(folder: Folder) {
         folderList.add(folder)
         // Add to filtered list as well if it should be visible

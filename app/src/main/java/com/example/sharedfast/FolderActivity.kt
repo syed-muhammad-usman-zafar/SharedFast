@@ -1,5 +1,6 @@
 package com.example.sharedfast
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,10 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.model.ImageItem
 import com.google.android.material.button.MaterialButton
-import com.example.sharedfast.model.Folder
-import com.example.sharedfast.util.MediaStoreHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
@@ -35,7 +33,7 @@ class FolderActivity : AppCompatActivity() {
 
     // Create a temporary file for camera photos
     private fun createImageFile(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
         val imageFileName = "JPEG_${timeStamp}_"
         val storageDir = getExternalFilesDir(null)
         return File.createTempFile(
@@ -171,7 +169,7 @@ class FolderActivity : AppCompatActivity() {
             val photoFile = createImageFile()
             val photoURI = FileProvider.getUriForFile(
                 this,
-                "com.example.sharedfast.fileprovider",
+                "com.example.shared fast.file provider",
                 photoFile
             )
             takePictureLauncher.launch(photoURI)
@@ -195,6 +193,7 @@ class FolderActivity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun filterImages(query: String?) {
         filteredImageList.clear()
 

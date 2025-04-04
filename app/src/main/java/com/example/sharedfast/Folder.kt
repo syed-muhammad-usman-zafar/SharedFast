@@ -1,4 +1,4 @@
-package com.example.sharedfast.model
+package com.example.sharedfast
 
 data class Folder(
     val name: String,

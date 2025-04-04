@@ -1,4 +1,4 @@
-package com.example.sharedfast.util
+package com.example.sharedfast
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,9 +9,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharedfast.model.Folder
 import com.squareup.picasso.Picasso
 
 class FolderAdapter(
@@ -64,8 +63,8 @@ class FolderAdapter(
         AlertDialog.Builder(context)
             .setTitle("Delete Folder")
             .setMessage("Are you sure you want to delete '$folderName'? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ ->
-                onFolderDelete(position)
+            .setPositiveButton("Delete")
+            { _, _ -> onFolderDelete(position)
             }
             .setNegativeButton("Cancel", null)
             .show()

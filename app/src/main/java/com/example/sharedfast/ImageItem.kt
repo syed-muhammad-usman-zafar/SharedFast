@@ -1,4 +1,4 @@
-package com.example.sharedfast.model
+package com.example.sharedfast
 
 data class ImageItem(
     val path: String,
