@@ -29,7 +29,9 @@ SharedFast is an Android note-sharing app built with Kotlin. It allows users to 
 ## Screenshots
 <img src="https://github.com/user-attachments/assets/d21ee783-5acd-41e5-b57f-53a2d8290c14" width="200">
 <img src="https://github.com/user-attachments/assets/b5a9762a-b95d-4657-8af9-01a943441a4c" width="200">
-<img src="https://github.com/user-attachments/assets/08fefa95-39b6-4f9f-a844-4fdefbc1f883" width="200">
+<img src="https://github.com/user-attachments/assets/85dc3f18-1df1-42c4-b934-cc6d0276c9fc" width="200">
+
+
 
 ## Contact
 For any inquiries, reach out to Usman Zafar via [GitHub](https://github.com/syed-muhammad-usman-zafar).
