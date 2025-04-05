@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class ImageAdapter(
-    private val imageList: MutableList<ImageItem>,
+    private val imageList: MutableList<ImageData>,
     private val onImageDelete: (Int) -> Unit,
     private val onImageClick: (Int) -> Unit) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>()
 {
@@ -56,10 +56,10 @@ class ImageAdapter(
         }
     }
     private fun showDeleteConfirmationDialog(context: Context, position: Int) {
-        val folderName = imageList[position].path
+        val imageName = imageList[position].title
         AlertDialog.Builder(context)
             .setTitle("Delete Image")
-            .setMessage("Are you sure you want to delete '$folderName'? This action cannot be undone.")
+            .setMessage("Are you sure you want to delete '$imageName'? This action cannot be undone.")
             .setPositiveButton("Delete")
             { _, _ -> onImageDelete(position)
             }
@@ -71,18 +71,9 @@ class ImageAdapter(
 
     // Method to update the image list for searching
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: List<ImageItem>) {
+    fun updateList(newList: List<ImageData>) {
         imageList.clear()
         imageList.addAll(newList)
         notifyDataSetChanged()
-    }
-
-
-    // Method to remove a image from the list
-    fun removeFolder(position: Int) {
-        if (position >= 0 && position < imageList.size) {
-            imageList.removeAt(position)
-            notifyItemRemoved(position)
-        }
     }
 }

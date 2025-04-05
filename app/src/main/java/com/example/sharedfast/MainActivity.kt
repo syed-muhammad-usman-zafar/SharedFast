@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var folderAdapter: FolderAdapter
-    private var folderList = mutableListOf<Folder>()
-    private var filteredFolderList = mutableListOf<Folder>()
+    private var folderList = mutableListOf<FolderData>()
+    private var filteredFolderList = mutableListOf<FolderData>()
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var searchView: SearchView
     private val folderKey = "folderList"
@@ -105,11 +105,11 @@ class MainActivity : AppCompatActivity() {
                 // Update folder in the list
                 val folderIndex = folderList.indexOfFirst { it.name == folderName }
                 if (folderIndex != -1) {
-                    folderList[folderIndex] = Folder(folderName, folderImages)
+                    folderList[folderIndex] = FolderData(folderName, folderImages)
                     // Update filtered list if folder is there
                     val filteredIndex = filteredFolderList.indexOfFirst { it.name == folderName }
                     if (filteredIndex != -1) {
-                        filteredFolderList[filteredIndex] = Folder(folderName, folderImages)
+                        filteredFolderList[filteredIndex] = FolderData(folderName, folderImages)
                         folderAdapter.notifyItemChanged(filteredIndex)
                     }
                     saveFolders()
@@ -117,9 +117,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun onFolderClicked(folder: Folder) {
+    private fun onFolderClicked(folder: FolderData) {
         // Pass the folder details to the FolderActivity
-        val intent = Intent(this, FolderActivity::class.java)
+        val intent = Intent(this, ImageActivity::class.java)
         // You can pass the folder's name and images as extras
         intent.putExtra("folder_name", folder.name)
         intent.putStringArrayListExtra("folder_images", ArrayList(folder.images))
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // New method to show sharing options when a folder is selected (long-pressed)
-    private fun showSharingOptions(folder: Folder) {
+    private fun showSharingOptions(folder: FolderData) {
         if (folder.images.isEmpty()) {
             Toast.makeText(this, "No images to share in ${folder.name}", Toast.LENGTH_SHORT).show()
             return
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Method to share via specific app package
-    private fun shareViaApp(folder: Folder, packageName: String) {
+    private fun shareViaApp(folder: FolderData, packageName: String) {
         if (folder.images.isEmpty()) {
             Toast.makeText(this, "No images to share", Toast.LENGTH_SHORT).show()
             return
@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Method specifically for Bluetooth sharing
-    private fun shareViaBluetooth(folder: Folder) {
+    private fun shareViaBluetooth(folder: FolderData) {
         if (folder.images.isEmpty()) {
             Toast.makeText(this, "No images to share", Toast.LENGTH_SHORT).show()
             return
@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Create") { _, _ ->
                 val folderName = folderNameInput.text.toString().trim()
                 if (folderName.isNotEmpty()) {
-                    val newFolder = Folder(folderName, listOf())  // Create folder with no images for now
+                    val newFolder = FolderData(folderName, listOf())  // Create folder with no images for now
                     addFolder(newFolder)
                     Toast.makeText(this, "Folder Created: $folderName", Toast.LENGTH_SHORT).show()
                 } else {
@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun addFolder(folder: Folder) {
+    private fun addFolder(folder: FolderData) {
         folderList.add(folder)
         // Add to filtered list as well if it should be visible
         val query = searchView.query?.toString() ?: ""
@@ -286,7 +286,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadFolders() {
         val gson = Gson()
         val json = sharedPreferences.getString(folderKey, null)
-        val type = object : TypeToken<MutableList<Folder>>() {}.type
+        val type = object : TypeToken<MutableList<FolderData>>() {}.type
         folderList = if (json != null) {
             gson.fromJson(json, type)
         } else {

@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class FolderAdapter(
-    private val folderList: MutableList<Folder>,
-    private val onFolderClick: (Folder) -> Unit,
+    private val folderList: MutableList<FolderData>,
+    private val onFolderClick: (FolderData) -> Unit,
     private val onFolderDelete: (Int) -> Unit,
-    private val onFolderLongClick: (Folder) -> Unit
+    private val onFolderLongClick: (FolderData) -> Unit
 ) : RecyclerView.Adapter<FolderAdapter.FolderViewHolder>() {
 
     class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -73,7 +73,7 @@ class FolderAdapter(
     override fun getItemCount(): Int = folderList.size
 
     // Method to add a folder to the list dynamically
-    fun addFolder(folder: Folder) {
+    fun addFolder(folder: FolderData) {
         folderList.add(folder)
         notifyItemInserted(folderList.size - 1)
     }

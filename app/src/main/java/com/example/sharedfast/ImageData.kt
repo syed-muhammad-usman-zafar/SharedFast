@@ -1,6 +1,6 @@
 package com.example.sharedfast
 
-data class ImageItem(
+data class ImageData(
     val path: String,
     val title: String,
     val date: String

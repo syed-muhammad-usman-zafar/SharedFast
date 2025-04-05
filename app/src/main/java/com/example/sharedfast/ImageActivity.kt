@@ -21,13 +21,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class FolderActivity : AppCompatActivity() {
+class ImageActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var searchView: SearchView
-    private var imageList = mutableListOf<ImageItem>()
-    private var filteredImageList = mutableListOf<ImageItem>()
+    private var imageList = mutableListOf<ImageData>()
+    private var filteredImageList = mutableListOf<ImageData>()
     private var folderName: String = ""
     private var currentPhotoPath: String = ""
 
@@ -55,7 +55,7 @@ class FolderActivity : AppCompatActivity() {
 
             if (mediaSavedPath != null) {
                 val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
-                val newImage = ImageItem(mediaSavedPath, "Image $timeStamp", timeStamp)
+                val newImage = ImageData(mediaSavedPath, "Image $timeStamp", timeStamp)
                 imageList.add(newImage)
 
                 // Add to filtered list if it matches the current query
@@ -80,7 +80,7 @@ class FolderActivity : AppCompatActivity() {
 
             if (mediaSavedPath != null) {
                 val timeStamp = SimpleDateFormat("yyyyMMdd_msys", Locale.getDefault()).format(Date())
-                val newImage = ImageItem(mediaSavedPath, "Image $timeStamp", timeStamp)
+                val newImage = ImageData(mediaSavedPath, "Image $timeStamp", timeStamp)
                 imageList.add(newImage)
 
                 // Add to filtered list if it matches the current query
@@ -105,7 +105,7 @@ class FolderActivity : AppCompatActivity() {
 
             if (mediaSavedPath != null) {
                 val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-                val newImage = ImageItem(mediaSavedPath, "File $timeStamp", timeStamp)
+                val newImage = ImageData(mediaSavedPath, "File $timeStamp", timeStamp)
                 imageList.add(newImage)
 
                 // Add to filtered list if it matches the current query
@@ -137,7 +137,7 @@ class FolderActivity : AppCompatActivity() {
         // Convert the string list to image items
         imageList = folderImages.mapIndexed { index, path ->
             val timeStamp = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            ImageItem(path, "Image $index", timeStamp)
+            ImageData(path, "Image $index", timeStamp)
         }.toMutableList()
 
         // Initialize filtered list with all images
@@ -237,7 +237,7 @@ class FolderActivity : AppCompatActivity() {
         imageAdapter.notifyDataSetChanged()
     }
 
-    private fun matchesSearchQuery(image: ImageItem, query: String): Boolean {
+    private fun matchesSearchQuery(image: ImageData, query: String): Boolean {
         val searchQuery = query.lowercase()
         return image.title.lowercase().contains(searchQuery) ||
                 image.date.lowercase().contains(searchQuery)
@@ -255,8 +255,8 @@ class FolderActivity : AppCompatActivity() {
         // Get the current folder list
         val gson = Gson()
         val json = sharedPreferences.getString("folderList", null)
-        val type = object : TypeToken<MutableList<Folder>>() {}.type
-        val folderList: MutableList<Folder> = if (json != null) {
+        val type = object : TypeToken<MutableList<FolderData>>() {}.type
+        val folderList: MutableList<FolderData> = if (json != null) {
             gson.fromJson(json, type)
         } else {
             mutableListOf()
@@ -266,10 +266,10 @@ class FolderActivity : AppCompatActivity() {
         val folderIndex = folderList.indexOfFirst { it.name == folderName }
         if (folderIndex != -1) {
             // Update existing folder
-            folderList[folderIndex] = Folder(folderName, imagePaths)
+            folderList[folderIndex] = FolderData(folderName, imagePaths)
         } else {
             // Add new folder
-            folderList.add(Folder(folderName, imagePaths))
+            folderList.add(FolderData(folderName, imagePaths))
         }
 
         // Save back to SharedPreferences
@@ -284,9 +284,4 @@ class FolderActivity : AppCompatActivity() {
         resultIntent.putStringArrayListExtra("folder_images", ArrayList(imagePaths))
         setResult(RESULT_OK, resultIntent)
     }
-
-
-
-
-
 }
