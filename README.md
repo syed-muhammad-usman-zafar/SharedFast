@@ -4,24 +4,24 @@ SharedFast is an Android note-sharing app built with Kotlin. It allows users to 
 
 ## Features
 
-- **Folder Management**: Create and organize folders.
-- **Image Handling**:
+- *Folder Management*: Create and organize folders.
+- *Image Handling*:
   - Import images/files from storage.
   - Capture and save images with unique names.
-- **RecyclerView Display**: Show images with date, time, and titles.
-- **Sharing Options**: Share folders via social media and Bluetooth.
-- **User Interface**:
+- *RecyclerView Display*: Show images with date, time, and titles.
+- *Sharing Options*: Share folders via social media and Bluetooth.
+- *User Interface*:
   - Splash screen with animation.
   - Unique layouts designed in Canva.
   - Floating Action Button (FAB) for adding folders.
-- **Storage**: Uses MediaStore/Content Providers instead of a database.
+- *Storage*: Uses MediaStore/Content Providers instead of a database.
 
 ## Installation
 
 1. Clone the repository:
-   ```sh
+   sh
    git clone https://github.com/syed-muhammad-usman-zafar/SharedFast.git
-   ```
+   
 2. Open the project in Android Studio.
 3. Sync Gradle and build the project.
 4. Run the app on an emulator or physical device.
@@ -34,4 +34,6 @@ SharedFast is an Android note-sharing app built with Kotlin. It allows users to 
 
 
 ## Contact
-For any inquiries, reach out to Usman Zafar via [GitHub](https://github.com/syed-muhammad-usman-zafar).
+For any inquiries, reach out to 
+- Usman Zafar via [GitHub](https://github.com/syed-muhammad-usman-zafar).
+- Fahd Asif via [Github](https://github.com/FahdAsifH2).
